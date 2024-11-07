@@ -1,0 +1,32 @@
+variables 
+
+R  - rows horizontal
+C - vertical streets
+T - time goes up by one for every movement 
+d - distance minimum numbers of cells car has to pass 
+    [a-x] + b-y. so get the starting distance of the car and then 
+    work out the difference total cells would be added to the time.
+N - pre booked rides:
+    1 1 2 3 2 7
+    1,1 is start car must travel to here before starting ride. need to work out closest ride to take them 
+    2,3 end distance 
+    2 time it can start from 
+    7 time it m8ust finish by 
+
+scoring system: 
+if the car starts at right time then gets 3 points and bonus 
+if it starts +1 or +2 from time 3 points 
+starts from anywhere higher then this gets 0 points 
+
+
+must take in a file with the world data then store all of this in constant variables 
+after the first row the data is about the car rides 
+
+All vechiles start at 0,0 
+vechiles give na list of rides they must complete 
+
+given a file for the cars allocation 
+2 2 1 means car 2 has 2 rides ride 2 and ride 1
+once the car has completed a ride take most recent of the list
+
+need to mape the ride details given in the world data to the correct ride car 
