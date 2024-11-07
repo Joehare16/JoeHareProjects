@@ -1,3 +1,11 @@
+I developed this project within a group of 5 people, The goal of this project was to create a fully functioning full stack GP system 
+To develop this project we followed a full developement cycle starting with user stories, conversation stories, then moving into implementation 
+testing and evaluation.
+
+
+
+
+
 # COMP5590
 
 ## [To-do](https://git.cs.kent.ac.uk/dw506/comp5590-a2/-/issues)
