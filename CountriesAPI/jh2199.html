@@ -1,0 +1,164 @@
+<head>
+    
+    <title>Region data jh2199 A1</title>
+    <h1>Region data</h1>
+    
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+
+<style>
+    th{
+        color:#fff;
+        background-color:#6ba1c4 ;
+
+    }
+    tr:nth-child(even){
+        background-color:lightgrey;
+    }
+
+</style>
+
+<script>
+
+$(() => {
+
+    //adds each of the regions from the api into the select box as an option value
+    const select = $("#regions")
+        const addItem = (regions => {
+        for(let i = 0; i<regions.length;i++){
+            var data = `<option>'${regions[i]}'</option>`
+            select.append(data)
+            }
+        })
+    
+    const table = $("#regionTable")
+    const displayTable = (item => {
+       //creates headings of the table
+        table.append(`<tr><th>Code</th>
+                    <th>Name</th>
+                    <th>Flag</th>
+                    <th>Capital</th>
+                    <th>Population</th>
+                    <th>Area</th>
+                    <th>Population Density</th>
+                    <td></td>
+                    </tr>`)
+        var count = 0;
+        var max = 0;
+        
+        //creates a map
+        const Population = new Map();
+        const Area = new Map();
+
+        $.each(item,function(index,item){ //goes through each individual item (country) in the json
+        count++; //adds to the count of how many countries for every time it loops
+        
+        //creates a map with country name assigned to country population
+        Population[item.name] = item.population;
+        Area[item.name] = item.area;
+
+        var popDensityFull = item.population / item.area
+        var popDensity = Math.round(popDensityFull*10) /10 //rounds to 1DP
+        
+        //adds all the json data to a table
+        table.append(`<tr>
+            <td>${item.code}</td> 
+            <td>${item.name}</td>
+            <td><img src = ${item.flag} title = ${item.name}/></td>
+            <td>${item.capital}</td>
+            <td>${item.population}</td>
+            <td>${item.area}</td>    
+            <td>${popDensity}</td>
+            </tr>`)
+    })
+    var SortPop = $.map(Population, function(value,key){
+       return {name: key, population: value};
+   }).sort(function(a,b){
+    //calls sort function a and b as the comparison, a taken away from b so map is sorted in descending order
+    //returns difference between ages if not negative kept the same order
+    return b.population - a.population;
+   })
+
+   //gets name value of the biggest population country
+   biggestPop = Object.values(SortPop)[0];
+   biggestPop = biggestPop.name
+    
+   var SortArea = $.map(Area, function(value,key){
+       return {name: key, area: value};
+   }).sort(function(a,b){
+
+       return b.area - a.area;
+   })
+
+   //gets the name value of the biggest area assigns it to biggest areas variable
+   biggestArea = Object.values(SortArea)[0];
+   biggestArea = biggestArea.name
+
+
+   //displays the data on the screen adds it to div id container 
+   var container = $("#container")
+    container.append("The total number of countries in this region is: "  + count + "<br>" )
+    container.append("The most populated country in this region is: " + biggestPop  + "<br>" )
+    container.append("The largest country is this region is: " + biggestArea  + "<br>" )
+});
+   
+   
+    const url = 
+    "https://www.cs.kent.ac.uk/people/staff/yh/api/country-data/countries/regions"
+
+
+    
+    $(document).ready(() => {
+        $.getJSON(url, (data) => addItem(data)) //calls add data function when the document is loaded
+        })
+    
+    $("#regions").on("change", function(){ //calls function when there is a change made to select value
+
+        var region = $("#regions").val() //gets the value inside the select when a change is made
+        region = region.replace(/'/g, ''); //removes commas from the selected item so it can be used in the url
+        $.getJSON(`https://www.cs.kent.ac.uk/people/staff/yh/api/country-data/countries/region/${region}`, //uses the select value as a parameter in the url
+                    (regionData) => displayTable(regionData))
+    })
+
+    $("#searchbutton").on("click", function(){ //when the search button is clicked this function is called
+        var search =$('#search').val().toLowerCase(); //this gets the value the user has typed into the search box and makes it lowercase to remove different cases
+        $('table tr').each(function(){ //goes through every row in the table
+        var countryName = $(this).find('td:nth-child(2)').text().toLowerCase(); //gets the name of the country
+        var capitalName = $(this).find('td:nth-child(4)').text().toLowerCase(); //gets the capital of the country
+        if (countryName.includes(search) || capitalName.includes(search)) { //checks if the search value is in the name of the country or capital
+            $(this).show(); //displays it on the screen if it is included
+        }
+        else{
+            $(this).hide(); //removes it from the table if not included
+        }
+    })
+})
+});
+</script>
+
+</head>
+
+<html>
+<body>
+    <p>This web page displays data about a selected region</p>
+    <div id="container"></div>
+    <select id ="regions">
+        <option>Select a region</option>
+    </select>
+    <br>
+    <br>
+    <label for ="search">Search for Country or Capital</label>
+    <br>
+    <br>
+    <input type ="text" id="search">
+    <br>
+    <br>
+    <button type ="submit" id="searchbutton">Search</button>
+    <table id = "regionTable">
+    </table>
+</body>
+</html>
+
+
+    
