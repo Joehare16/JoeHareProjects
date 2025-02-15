@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=SeCoGA
+comment0.text=\r\n\ Sequential\ covering\ procedure\ that\ uses\ a\ GA\ to\ create\ rules.\r\n\r\n\ @author\ jh2199\r\n\ @version\ 1.0\r\n
+comment1.params=filename
+comment1.target=void\ covering(java.lang.String)
+comment1.text=\r\n\ The\ sequential\ covering\ procedure.\r\n\ \r\n\ @param\ filename\ the\ dataset\ file\ name.\r\n
+comment2.params=
+comment2.target=int\ select()
+comment2.text=\r\n\ Retuns\ the\ index\ of\ the\ selected\ parent.\r\n\ \r\n\ @return\ the\ index\ of\ the\ selected\ parent.\r\n
+comment3.params=
+comment3.target=void\ initialise()
+comment3.text=\r\n\ Initialises\ the\ population.\r\n
+comment4.params=parent
+comment4.target=boolean[]\ mutation(int)
+comment4.text=\r\n\ Point\ mutation\ operator.\r\n\ \r\n\ @param\ parent\ index\ of\ the\ parent\ individual\ from\ the\ population.\r\n\ @param\ newPopulation\ the\ new\ population.\r\n\ @param\ current\ index\ of\ the\ individual\ being\ created\ in\ the\ new\ population.\r\n
+comment5.params=first\ second
+comment5.target=boolean[][]\ crossover(int,\ int)
+comment5.text=\r\n\ One-point\ crossover\ operator.\ Note\ that\ the\ crossover\ generates\ two\ offsprings,\r\n\ so\ both\ current\ and\ current+1\ position\ in\ the\ new\ population\ must\ be\ filled.\r\n\ \r\n\ @param\ first\ index\ of\ the\ first\ parent\ individual\ from\ the\ population.\r\n\ @param\ second\ index\ of\ the\ second\ parent\ individual\ from\ the\ population.\r\n
+numComments=6

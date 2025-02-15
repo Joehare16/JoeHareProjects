@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Modeling
+comment1.params=filePath
+comment1.target=java.util.List\ readArffFile(java.lang.String)
+comment2.params=headerLines
+comment2.target=java.util.List\ getNumericColumns(java.util.List)
+comment3.params=datalines\ numericColumns
+comment3.target=java.util.Map\ calculateCategories(java.util.List,\ java.util.List)
+comment4.params=categoryAssignments\ outputFilePath\ datalines\ headerlines
+comment4.target=void\ updateArffFile(java.util.Map,\ java.lang.String,\ java.util.List,\ java.util.List)
+comment5.params=args
+comment5.target=void\ main(java.lang.String[])
+numComments=6
