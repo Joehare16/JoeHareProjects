@@ -5,3 +5,5 @@ This was done using the turtle syntax
 files q1,q2,q3 contian SPARQL queries made to the RDF graph 
 
 files original and rewritten show rewritten questions with inference and RDFS intailment
+
+i scored 96% in this assignment
