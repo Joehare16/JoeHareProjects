@@ -1,0 +1,24 @@
+# This query retrieves the names of characters in game of thrones and how many skills they have it uses UNION to get 
+# all the characters from the highBorn and lowBorn subclasses it then returns all the characters who have multiple skills in 
+# descending order using the HAVING function to filter the data returned.
+
+
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX got: <http://example.org/gameofthrones/>
+
+SELECT ?name (COUNT(?skill) AS ?skillCount)
+WHERE{
+    {
+    ?Character a got:highBorn .
+    ?Character foaf:name ?name .
+    ?Character got:skill ?skill .
+    }
+UNION{
+    ?Character a got:lowBorn .
+    ?Character foaf:name ?name .
+    ?Character got:skill ?skill .
+    }
+}GROUP BY ?name
+HAVING(?skillCount > 1)
+ORDER BY DESC(?skillCount)

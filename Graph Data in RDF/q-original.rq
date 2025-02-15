@@ -1,0 +1,13 @@
+# This query is used to select all the characters names in the rdf graph. The query uses RDFS Entailment to infer that the subclasses
+# highBorn and lowborn are instances of the Character class. As a result characters who are explicitly defined as instances of the 
+# highborn and lowborn class are stil returned despite not being stated as instances of the character class. Without RDFS Entailment 
+# this query would return no data as characters in the graph are instances of either highborn or lowborn and not as instances of character. 
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX got: <http://example.org/gameofthrones/>
+
+SELECT ?name
+WHERE {
+    ?Character a got:Character .
+    ?Character foaf:name ?name .
+}

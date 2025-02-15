@@ -1,0 +1,21 @@
+# This query selects 3 highborn members from the house Stark. It uses limit to only return 3 of the members, and groups the results on their name.
+# It utilises the optional function as houses contains members of as well as head of houses. 
+
+
+PREFIX got: <http://example.org/gameofthrones/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?name
+WHERE {
+    {
+        ?Character a got:highBorn .
+        ?Character got:memberOf got:HouseStark .
+        ?Character foaf:name ?name .
+    }
+    UNION
+    {
+        ?Character a got:highBorn .
+        ?Character got:headOf got:HouseStark .
+        ?Character foaf:name ?name .
+    }
+}
+LIMIT 3

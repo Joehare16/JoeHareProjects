@@ -1,0 +1,190 @@
+# The chosen domain is the fictional universe Game of Thrones, the information it 
+# represents is Characters their houses and where the houses are located. As well as descriptions
+# of the characters attributes such as titles, house membership and skills. Addtionally 
+# realtionships between characters and houses are shown.
+
+
+
+@prefix got: <http://example.org/gameofthrones/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# Classes
+got:House rdf:type rdfs:Class;
+          rdfs:label "House" .
+
+got:Character rdf:type rdfs:Class;
+              rdfs:label "Character" .
+
+got:highBorn rdf:type rdfs:Class;
+             rdfs:subClassOf got:Character .
+
+got:lowBorn rdf:type rdfs:Class;
+            rdfs:subClassOf got:Character .
+
+got:Location rdf:type rdfs:Class;
+             rdfs:label "Location" .
+
+# Properties
+got:memberOf rdf:type rdf:Property ;
+             rdfs:domain got:Character ;
+             rdfs:range got:House ;
+             rdfs:label "member of" .
+
+got:headOf rdf:type rdf:Property ;
+           rdfs:subPropertyOf got:memberOf ;
+           rdfs:label "head of" .
+
+got:houseOf rdf:type rdf:Property ;
+            rdfs:domain got:Location ;
+            rdfs:range got:House ;
+            rdfs:label "house of" .
+
+got:title rdf:type rdf:Property ;
+          rdfs:domain got:Character ;
+          rdfs:range xsd:string ;
+          rdfs:label "title" .
+
+got:titleCollection rdf:type rdfs:Class ;
+                    rdfs:label "Title Collection" .
+
+got:friendOf rdf:type rdf:Property ;
+             rdfs:domain got:Character ;
+             rdfs:range got:Character ;
+             rdfs:label "friend of" .
+
+got:skill rdf:type rdf:Property ;
+           rdfs:domain got:Character ;
+           rdfs:range xsd:string ;
+           rdfs:label "skill" .
+
+got:skillCollection rdf:type rdfs:Class ;
+                    rdfs:label "Skill Collection" .
+
+got:sonOf rdf:type rdf:Property ;
+          rdfs:domain got:Character ;
+          rdfs:range got:Character ;
+          rdfs:label "son of" .
+
+# Facts
+got:HouseStark rdf:type got:House ;
+               rdfs:label "House Stark" .
+
+got:johnSnow rdf:type got:highBorn ;
+             foaf:name "John Snow" ;
+             got:memberOf got:HouseStark ;
+             got:title "Lord Commander of the Nights Watch"^^xsd:string ;
+              got:sonOf got:nedStark ;
+             got:skill _:johnSkills .
+
+_:johnSkills rdf:type got:skillCollection;
+              got:skill1 "Leadership"^^xsd:string ;
+              got:skill2 "Bravery"^^xsd:string ;
+              got:skill3 "Swordsmanship"^^xsd:string ;
+              got:skill4 "Tactics"^^xsd:string .
+
+got:nedStark rdf:type got:highBorn ;
+             foaf:name "Ned Stark" ;
+             got:headOf got:HouseStark ;
+             got:title "Head of House Stark"^^xsd:string ;
+             got:skill "Honour"^^xsd:string .
+
+got:robStark rdf:type got:highBorn ;
+             foaf:name "Rob Stark" ;
+             got:memberOf got:HouseStark ;
+             got:title "Heir to House Stark"^^xsd:string ;
+             got:sonOf got:nedStark ;
+             got:skill "Tactics"^^xsd:string .
+
+got:hodor rdf:type got:lowBorn ;
+             foaf:name "Hodor" ;
+             got:memberOf got:HouseStark ;
+             got:skill "Carrying"^^xsd:string .
+
+got:osha rdf:type got:lowBorn ;
+             foaf:name "Osha" ;
+             got:memberOf got:HouseStark .
+
+got:winterfell rdf:type got:Location ;
+              foaf:name "Winterfell" ;
+              got:houseOf got:HouseStark .
+
+got:HouseLannister rdf:type got:House ;
+                  rdfs:label "House Lannister" .
+
+got:tywinLannister rdf:type got:highBorn ;
+                   foaf:name "Tywin Lannister" ;
+                   got:headOf got:HouseLannister ;
+                   got:title "Head of House Lannister"^^xsd:string ;
+                   got:skill "Ruling"^^xsd:string .
+
+got:tyrionLannister rdf:type got:highBorn ;
+                    foaf:name "Tyrion Lannister" ;
+                    got:memberOf got:HouseLannister ;
+                    got:title "Lord of Casterly Rock"^^xsd:string ;
+                    got:sonOf got:tywinLannister ;
+                    got:skill _:tyrionSkills .
+
+_:tyrionSkills rdf:type got:skillCollection;
+              got:skill1 "Intelligence"^^xsd:string ;
+              got:skill2 "Diplomancy"^^xsd:string ;
+              got:skill3 "Planning"^^xsd:string .
+
+got:jaimeLannister rdf:type got:highBorn ;
+                   foaf:name "Jaime Lannister" ;
+                   got:memberOf got:HouseLannister ;
+                   got:sonOf got:tywinLannister ;
+                   got:title _:jaimeTitles .
+
+_:jaimeTitles rdf:type got:titleCollection ;
+              got:title1 "Ser"^^xsd:string ;
+              got:title2 "Kingslayer"^^xsd:string ;
+              got:title3 "Lord of the City Watch" .
+
+got:cerseiLannister rdf:type got:highBorn ;
+                    foaf:name "Cersei Lannister" ;
+                    got:memberOf got:HouseLannister ;
+                    got:title "Queen Regent"^^xsd:string .
+
+got:joffreyLannister rdf:type got:highBorn ;
+                    foaf:name "Joffrey Lannister" ;
+                    got:title "King of the Seven Kingdoms"^^xsd:string ;
+                    got:sonOf got:jaimeLannister .
+
+got:casterlyRock rdf:type got:Location ;
+                foaf:name "Casterly Rock" ;
+                got:houseOf got:HouseLannister .
+
+got:houseTargaryen rdf:type got:House ;
+                   rdfs:label "House Targaryen" .
+
+got:daenerysTargaryen rdf:type got:highBorn ;
+                      foaf:name "Daenerys Targaryen" ;
+                      got:headOf got:houseTargaryen ;
+                      got:title _:daenerysTitles .
+
+_:daenerysTitles rdf:type got:titleCollection ;
+              got:title1 "Mother of Dragons"^^xsd:string ;
+              got:title2 "Khalessi"^^xsd:string ;
+              got:title3 "Breaker of Chains"^^xsd:string ;
+              got:title4 "Daenerys Stormborn of House Targaryen"^^xsd:string .
+
+got:bronn rdf:type got:lowBorn ;
+          foaf:name "Bronn" ;
+          got:friendOf got:tyrionLannister ;
+          got:friendOf got:jaimeLannister ; 
+          got:skill _:bronnSkills .
+
+_:bronnSkills rdf:type got:skillCollection;
+              got:skill1 "Sellsword"^^xsd:string ;
+              got:skill2 "Dueling"^^xsd:string ;
+              got:skill3 "Cunning"^^xsd:string .
+
+got:podrick rdf:type got:lowBorn ;
+           foaf:name "Podrick" ;
+           got:friendOf got:tyrionLannister ;
+           got:friendOf got:jaimeLannister .
+
+             

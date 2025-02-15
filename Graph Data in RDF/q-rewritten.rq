@@ -1,0 +1,13 @@
+# This query also returns all the characters names from the RDF graph. However it uses a property path expression is used to manually 
+# infer the subclasses of the got:Character class through the rdfs:subClassOf property. This means that characters who are implcity or 
+# explicitly defined as instances of the character class will be returned.
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX got: <http://example.org/gameofthrones/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name
+WHERE {
+    ?Character a/rdfs:subClassOf* got:Character .
+    ?Character foaf:name ?name .
+}

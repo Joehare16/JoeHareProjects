@@ -1,0 +1,22 @@
+
+#This query selects all the grandsons who are High Born in the RDF graph. it uses distinct to ensure that when it queries characters with the same grandsons they are not 
+# repeated. it then uses FILTER EXISTS to only retrieve the characters who are sons of sons of which uses property pathing to go through multiple levels 
+# of the sonOf property. Finally the OPTIONAL function is used to retrieve the skill and title of the grandson if they have that property.
+
+PREFIX got: <http://example.org/gameofthrones/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?name ?skill ?title
+WHERE {
+    {
+        ?Character a got:highBorn .
+        ?Character foaf:name ?name .
+        FILTER EXISTS{?Character got:sonOf+/got:sonOf ?son . }
+    }    
+    OPTIONAL {
+        ?Character got:skill ?skill .
+    }
+    OPTIONAL {
+        ?Character got:title ?title .
+    }
+}
+
