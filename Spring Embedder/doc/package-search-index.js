@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"uk.ac.kent.graph"},{"l":"uk.ac.kent.graph.comparators"},{"l":"uk.ac.kent.graph.display"},{"l":"uk.ac.kent.graph.drawers"}];updateSearchResults();
